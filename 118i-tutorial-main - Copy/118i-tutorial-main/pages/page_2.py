@@ -6,7 +6,7 @@ import requests
 from openai import OpenAI
 from pathlib import Path
 
-st.markdown("# Picture Your Ideal City")
+st.markdown("# What Does Your Ideal City Look Like?")
 st.sidebar.markdown("# Picture Your Ideal City")
 
 openai.api_key = os.environ["OPENAI_API_KEY"]
