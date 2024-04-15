@@ -4,8 +4,6 @@ import openai
 from openai import OpenAI
 from pathlib import Path
 
-st.markdown("# Pain Points")
-st.sidebar.markdown("# Pain Points")
 
 
 openai.api_key = os.environ["OPENAI_API_KEY"]
@@ -17,24 +15,35 @@ client = OpenAI()
 # https://www.educative.io/answers/how-to-add-the-media-elements-to-the-streamlit-web-interface
 #speech_file_path = Path(__file__).parent / 'pages/audio/Meeting_Minutes.mp3'
 #audio_file_path = 'audio/Meeting_Minutes.mp3'
-audio_file_path = Path(__file__).parent / 'audio\Walking.m4a'
-audio_file = open(audio_file_path, 'rb')
-audio_bytes = audio_file.read()
-st.audio(audio_bytes, format='audio/mp3')
-st.write("Transcribing and Summarizing Audio file... Please wait for the results...")
+# audio_file_path = Path(__file__).parent / 'audio\Walking.m4a'
+# audio_file = open(audio_file_path, 'rb')
+# audio_bytes = audio_file.read()
+# st.audio(audio_bytes, format='audio/mp3')
+# st.write("Transcribing and Summarizing Audio file... Please wait for the results...")
+
 
 # transcribe the audio 
 # Given the path to an audio file, transcribes the audio using Whisper.
 # For more Speech-to-text features, check:
 # https://platform.openai.com/docs/guides/speech-to-text
-def transcribe_audio(audio_file_path):
-    audio_file = open(audio_file_path, "rb")
+# def transcribe_audio(audio_file_path):
+    # audio_file = open(audio_file_path, "rb")
+   #  transcription = client.audio.transcriptions.create(
+     #    model="whisper-1",
+      #   file=audio_file
+   #  )
+   #  return transcription.text
+
+    # Transcribe the audio 
+def transcribe_audio(uploaded_file):
     transcription = client.audio.transcriptions.create(
         model="whisper-1",
-        file=audio_file
+        file=uploaded_file
     )
     return transcription.text
 
+    # Call the function with the uploaded file
+    transcription = transcribe_audio(uploaded_file)
 # Takes the transcription of the meeting and returns a summary of it via text completions
 def abstract_summary_extraction(transcription):
     response = client.chat.completions.create(
@@ -119,36 +128,51 @@ def meeting_minutes(transcription):
         'action_items': action_items,
         'sentiment': sentiment
     }
+def main():
+    st.markdown("# Pain Points")
+    st.sidebar.markdown("# Pain Points (Audio)")
 
-transcription = transcribe_audio(audio_file_path)
-minutes = meeting_minutes(transcription)
-abstract_summary = "ABSTRACT SUMMARY\n" + minutes["abstract_summary"] + "\n\n"
-key_points = "KEY POINTS\n" + minutes["key_points"] + "\n\n"
-action_items = "ACTION ITEMS\n" + minutes["action_items"] + "\n\n"
-sentiment = "SENTIMENT\n" + minutes["sentiment"] + "\n\n"
+    # Create a file uploader
+    # Create a file uploader
+    uploaded_file = st.file_uploader("Choose an audio file", type=["mp3", "m4a", "wav"], key="unique_key")
 
-print(abstract_summary + key_points + action_items + sentiment)
+    if uploaded_file is not None:
+        # Read the audio file
+        audio_bytes = uploaded_file.read()
+        st.audio(audio_bytes, format='audio/mp3')
+        st.write("Transcribing and Summarizing Audio file... Please wait for the results...")
 
-st.header('Transcription Results:')
+        # Transcribe the audio
+        transcription = transcribe_audio(uploaded_file)
 
-option = st.radio(
-    "Select your desired output:",
-    [ ":one: :rainbow[Summary]", 
-     ":two: sentiment :movie_camera:",
-     ":three: action_items :ballot_box_with_check:", 
-     ":four: key_points :receipt:"],
-    captions = [
+        # Extract the summary, key points, action items, and sentiment
+        minutes = meeting_minutes(transcription)
+        abstract_summary = "SUMMARY\n" + minutes["abstract_summary"] + "\n\n"
+        key_points = "KEY POINTS\n" + minutes["key_points"] + "\n\n"
+        action_items = "ACTION ITEMS\n" + minutes["action_items"] + "\n\n"
+        sentiment = "SENTIMENT\n" + minutes["sentiment"] + "\n\n"
+
+        # Display the results
+        option = st.radio(
+            "Select your desired output:",
+            [":one: :rainbow[Summary]", 
+             ":two: sentiment :movie_camera:",
+             ":three: action_items :ballot_box_with_check:", 
+             ":four: key_points :receipt:"],
+            captions=[
                 "See the summary of the meeting", 
                 "Check out the sentiment of this meeting",
                 "List action items from the meeting",
                 "List key points discussed in the meeting"])
 
-if option == ":one: :rainbow[Summary]":
-    st.write(abstract_summary)
-elif option == ":two: sentiment :movie_camera:":
-    st.write(sentiment)
-elif option == ":three: action_items :ballot_box_with_check:":
-    st.write(action_items)
-elif option == ":four: key_points :receipt:":
-    st.write(key_points)
-#st.write(transcription)
+        if option == ":one: :rainbow[Summary]":
+            st.text(abstract_summary)
+        elif option == ":two: sentiment :movie_camera:":
+            st.text(sentiment)
+        elif option == ":three: action_items :ballot_box_with_check:":
+            st.text(action_items)
+        elif option == ":four: key_points :receipt:":
+            st.text(key_points)
+
+if __name__ == "__main__":
+    main()

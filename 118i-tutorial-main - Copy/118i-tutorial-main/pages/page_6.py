@@ -7,6 +7,9 @@ import os
 import openai
 from openai import OpenAI
 from pathlib import Path
+
+st.sidebar.markdown("# Pain Points (PDF)")
+
 openai.api_key = os.environ["OPENAI_API_KEY"]
 
 client = OpenAI()
@@ -33,7 +36,7 @@ def main():
     
     def get_key_points(text):
         response = client.chat.completions.create(
-            model="gpt-3.5-turbo",
+            model="gpt-4-turbo",
             temperature=0,
             messages=[
                 {

@@ -38,7 +38,7 @@ def filename_from_input(prompt):
 
 # Create an image
 # If model is not specified, the default is DALL-E-2.
-def get_image(prompt, model="dall-e-2"):
+def get_image(prompt, model="dall-e-3"):
     image = client.images.generate(
         prompt=prompt,
         model=model,

@@ -1,0 +1,54 @@
+Summary:
+The Sapphire Team's project, Walk-E, aims to address the challenges faced by users like Bob, a college student without a car who seeks safe walking routes and urban improvements. Bob interacts with Walk-E by using its features to address community needs, gather data, and propose urban planning solutions. The prototype focuses on making Downtown San Jose more walkable through features like speech-to-text analysis, generative AI for renderings, and a reward system for walking challenges. The project's GitHub link provides access to the prototype showcasing these functionalities.
+
+Key Points:
+Key Points:
+- The project is called Walk-E developed by the Sapphire Team, consisting of Michelle Ha, Trung Van, Brian Luc, and Ramiro Moran.
+- The user persona introduced is Bob, an 18 to 25-year-old full-time environmental science student at SJSU facing challenges like lack of safe walking routes, car break-ins, and littered walkways.
+- Bob's goals include exploring Downtown San Jose, promoting health and safety, advocating for urban planning, supporting local businesses, and reducing carbon footprint.
+- Bob interacts with the Walk-E app to address his concerns, gather data, create urban planning solutions, and support local businesses through walking challenges.
+- The prototype aims to make Downtown San Jose more walkable and includes features like speech-to-text analysis, generative AI for urban planning suggestions, and a reward system for walking challenges.
+- The project's GitHub link is provided for further exploration and development.
+
+Action Items:
+### Action Items:
+1. **Develop Feature #1:**
+   - Utilize speech-to-text and NLP to analyze text and audio files for highlighting community needs/pain points regarding urban development/improvements.
+   - Implement OpenAI API capabilities such as speech-to-text, transcription, summary, sentiment/tone analysis, key points, action items, whisper-1 model, gpt-3.5-turbo.
+   - File name: page_3.py
+
+2. **Develop Feature #2:**
+   - Utilize generative AI to create 2D and/or 3D renderings of urban planning suggestions to provide users with potential layout/visualization.
+   - Implement OpenAI API capabilities like dall-e-2 model and generativeAI for image creation.
+   - File name: page_2.py
+
+3. **Develop Feature #3:**
+   - Implement a reward system using generative AI to create text and images for providing users with walking challenges tailored to individual preferences and fitness levels upon request.
+   - Utilize generative AI and gpt-3.5-turbo model for this feature.
+   - File name: page_1.py
+
+4. **Update Prototype on Github:**
+   - Ensure that the first prototype demonstrating the basic features of making downtown San Jose more walkable is updated on the project's Github repository.
+   - Project Github link: [https://github.com/mha621/118iproject](https://github.com/mha621/118iproject)
+
+5. **Testing and Feedback:**
+   - Conduct testing of the prototype with potential users to gather feedback on usability, functionality, and overall user experience.
+   - Incorporate feedback to improve the prototype and enhance user satisfaction.
+
+6. **Documentation:**
+   - Document the features, functionalities, and usage instructions of the prototype for future reference and development iterations.
+
+7. **Marketing and Awareness:**
+   - Develop a marketing strategy to increase awareness of the Walk-E app among the target audience, especially students like Bob, who face similar challenges in urban mobility.
+
+8. **Participate in Town Hall Meeting:**
+   - Prepare Bob to present his urban planning suggestions at the town hall meeting to raise awareness about the issues and potential solutions identified through the Walk-E app.
+
+9. **Engage with Local Businesses:**
+   - Establish partnerships with local businesses to encourage foot traffic through the Walk-E app's reward system and support the community's economic growth.
+
+10. **Continuous Improvement:**
+    - Continuously iterate on the app based on user feedback and technological advancements to enhance its effectiveness in promoting walkability and urban mobility.
+
+Sentiment:
+The sentiment of the text is generally positive. Bob's story highlights his aspirations, challenges, and how the Walk-E app helps him address issues related to urban mobility and safety. The narrative portrays Bob's proactive approach, collaboration with others, and positive outcomes achieved through the app's features, emphasizing community engagement and support for local businesses.

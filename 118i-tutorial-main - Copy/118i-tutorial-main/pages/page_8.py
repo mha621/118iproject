@@ -1,18 +1,18 @@
 import os
 import openai
 import streamlit as st
+from PIL import Image
+import requests
 from openai import OpenAI
+from pathlib import Path
 
-
-st.markdown("# Be Active! Go Out and Explore!")
-st.sidebar.markdown("# Be Active!")
+st.markdown("# How do you want to fix up your city?")
+st.sidebar.markdown("# Picture Your Ideal City")
 
 openai.api_key = os.environ["OPENAI_API_KEY"]
 
 client = OpenAI()
 
-
-# create a wrapper function
 def get_completion(prompt, model="gpt-4-turbo"):
    completion = client.chat.completions.create(
         model=model,
@@ -31,11 +31,13 @@ def get_completion(prompt, model="gpt-4-turbo"):
     )
    return completion.choices[0].message.content
 
-# create our streamlit app
-with st.form(key = "chat"):
-    prompt = st.text_input("What are your activity goals today?") 
-    
-    submitted = st.form_submit_button("Submit")
-    
-    if submitted:
-        st.write(get_completion(prompt))
+uploaded_file = st.file_uploader("Choose a file", type=['jpg', 'png', 'jpeg', 'pdf', 'txt'])
+if uploaded_file is not None:
+    # Assuming it's an image for now
+    # Process the file here, e.g., display it
+    st.image(uploaded_file.read(), caption='Uploaded Image', use_column_width=True)
+
+    user_input = st.text_input("Ask me a question or type a command:")
+if st.button("Submit"):
+    response = get_completion(user_input)
+    st.write(response)
