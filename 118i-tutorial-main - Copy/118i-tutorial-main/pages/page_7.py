@@ -73,5 +73,5 @@ with st.form(key = "chat"):
                 st.write("Here are some food places you can walk to:")
                 for place in food_places:
                     st.write(place['name'])
-            else:
-                st.write("Sorry, I couldn't find any food places in your location.")
+            # else:
+                # st.write("Sorry, I couldn't find any food places in your location.")
