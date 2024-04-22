@@ -8,18 +8,20 @@ import openai
 from openai import OpenAI
 from pathlib import Path
 
-st.sidebar.markdown("# Pain Points (PDF)")
+st.sidebar.markdown("# Stay Updated with the Latest News in San Jose!")
 
 openai.api_key = os.environ["OPENAI_API_KEY"]
 
 client = OpenAI()
 
 def main():
-    st.title("Submit a PDF to Analyze Walking Pain Points in San Jose!")
+    st.title("Stay Updated on the Latest News in San Jose! 📰")
+    st.write("")
+    st.write("Stay informed about urban development and walkability in San Jose with ease! Browse our curated list of PDF articles covering a range of topics. Select the article you're interested in and choose from three options: receive a summary, explore key points, or access the full transcription. Whatever your preference, our app ensures you're up-to-date on the latest discussions, plans, and news shaping the city's future.")
 
     def get_summary(text):
         response = client.chat.completions.create(
-            model="gpt-3.5-turbo",
+            model="gpt-4-turbo",
             temperature=0,
             messages=[
                 {
@@ -53,7 +55,7 @@ def main():
 
     def get_action_items(text):
         response = client.chat.completions.create(
-            model="gpt-3.5-turbo",
+            model="gpt-4-turbo",
             temperature=0,
             messages=[
                 {
@@ -70,7 +72,7 @@ def main():
     
     def get_sentiment(transcription):
         response = client.chat.completions.create(
-            model="gpt-3.5-turbo",
+            model="gpt-4-turbo",
             temperature=0,
             messages=[
                 {
@@ -91,20 +93,23 @@ def main():
         # st.title("Stay Updated with the Latest News")
 
     # Get a list of all the PDF files in the "articles" folder
-    pdf_files = [f for f in os.listdir('articles') if f.endswith('.pdf')]
+    pdf_files = [f for f in os.listdir(r'C:\Users\Michelle\Downloads\118i\118iproject\118i-tutorial-main - Copy\118i-tutorial-main\pages\articles') if f.endswith('.pdf')]
 
     # Let the user select a file
-    selected_file = st.selectbox('Select a file:', pdf_files)
+    selected_file = st.selectbox('Select one of the following articles:', pdf_files)
 
     # Let the user select an option
     options = ['Summary', 'Key Points', 'Full Transcription']
-    selected_option = st.selectbox('Select an option:', options)
+    selected_option = st.selectbox('What would you like to see?', options)
 
     # Open the selected file
-    with fitz.open(Path('articles', selected_file)) as doc:
+    selected_file_path = os.path.join(r'C:\Users\Michelle\Downloads\118i\118iproject\118i-tutorial-main - Copy\118i-tutorial-main\pages\articles', selected_file)
+
+# Open the selected file
+    with fitz.open(selected_file_path) as doc:
         text = ""
         for page in doc:
-            text += page.getText()
+            text += page.get_text("text")
 
     if selected_option == 'Summary':
         # Get a summary of the text
@@ -118,34 +123,15 @@ def main():
         # Display the full transcription of the article
         st.write(text)
         # Load the PDF
-        pdf = fitz.open(stream=selected_file.read(), filetype="pdf")
+        pdf = fitz.open(selected_file_path)
         
         # Concatenate the text from all pages
         full_text = ""
         for i in range(len(pdf)):
             page = pdf.load_page(i)
             full_text += page.get_text("text")
-        
-        # Analyze the full text
-        st.markdown("## Summary of the entire PDF:")
-        
-        summary = get_summary(full_text)
-        st.markdown(f"**Summary:**\n{summary}")
 
-        key_points = get_key_points(full_text)
-        st.markdown("## Key Points of the entire PDF:") 
-        st.markdown(f"**Key Points:**\n{key_points}")
-
-    
-
-        with open(r"C:\Users\Michelle\Downloads\118i\118iproject\118i-tutorial-main - Copy\118i-tutorial-main\pages\results.txt", "w") as f:
-            f.write("Summary:\n")
-            f.write(summary)
-            f.write("\n\nKey Points:\n")
-            f.write(key_points)
             
-
-
 if __name__ == "__main__":
     main()
 
