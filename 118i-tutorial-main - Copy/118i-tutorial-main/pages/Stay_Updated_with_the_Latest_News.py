@@ -85,11 +85,40 @@ def main():
         )
         return response.choices[0].message.content
     # Create a file uploader
-    uploaded_file = st.file_uploader("Choose a PDF file related to the issue of limited walkability in San Jose that you want to analyze. You will receive a summary, key points, action items, and a sentiment analysis of this PDF.", type="pdf")
+    # uploaded_file = st.file_uploader("Choose a PDF file related to the issue of limited walkability in San Jose that you want to analyze. You will receive a summary, key points, action items, and a sentiment analysis of this PDF.", type="pdf")
 
-    if uploaded_file is not None:
+    #if uploaded_file is not None:
+        # st.title("Stay Updated with the Latest News")
+
+    # Get a list of all the PDF files in the "articles" folder
+    pdf_files = [f for f in os.listdir('articles') if f.endswith('.pdf')]
+
+    # Let the user select a file
+    selected_file = st.selectbox('Select a file:', pdf_files)
+
+    # Let the user select an option
+    options = ['Summary', 'Key Points', 'Full Transcription']
+    selected_option = st.selectbox('Select an option:', options)
+
+    # Open the selected file
+    with fitz.open(Path('articles', selected_file)) as doc:
+        text = ""
+        for page in doc:
+            text += page.getText()
+
+    if selected_option == 'Summary':
+        # Get a summary of the text
+        summary = get_summary(text)
+        st.write(summary)
+    elif selected_option == 'Key Points':
+        # Get the key points of the text
+        key_points = get_key_points(text)
+        st.write(key_points)
+    else:
+        # Display the full transcription of the article
+        st.write(text)
         # Load the PDF
-        pdf = fitz.open(stream=uploaded_file.read(), filetype="pdf")
+        pdf = fitz.open(stream=selected_file.read(), filetype="pdf")
         
         # Concatenate the text from all pages
         full_text = ""
@@ -107,23 +136,14 @@ def main():
         st.markdown("## Key Points of the entire PDF:") 
         st.markdown(f"**Key Points:**\n{key_points}")
 
-        action_items = get_action_items(full_text)
-        st.markdown("## Action Items of the entire PDF:")
-        st.markdown(f"**Action Items:**\n{action_items}")
-
-        sentiment = get_sentiment(full_text)
-        st.markdown("## Sentiment of the entire PDF:")
-        st.markdown(f"**Sentiment:**\n{sentiment}")
+    
 
         with open(r"C:\Users\Michelle\Downloads\118i\118iproject\118i-tutorial-main - Copy\118i-tutorial-main\pages\results.txt", "w") as f:
             f.write("Summary:\n")
             f.write(summary)
             f.write("\n\nKey Points:\n")
             f.write(key_points)
-            f.write("\n\nAction Items:\n")
-            f.write(action_items)
-            f.write("\n\nSentiment:\n")
-            f.write(sentiment)
+            
 
 
 if __name__ == "__main__":

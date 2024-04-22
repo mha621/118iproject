@@ -6,8 +6,10 @@ import requests
 from openai import OpenAI
 from pathlib import Path
 
-st.markdown("# What Does Your Ideal City Look Like?")
-st.sidebar.markdown("# Picture Your Ideal City")
+st.markdown("# Envision Your Ideal City 📷")
+st.sidebar.markdown("# Imagine the Future!")
+
+st.write("Paint the picture of your ideal urban landscape! Describe the features you envision in your dream city, from vibrant pedestrian-friendly streets to green spaces and community hubs. Your input will help our app create a visual rendering of your ideal future cityscape.")
 
 openai.api_key = os.environ["OPENAI_API_KEY"]
 
@@ -56,7 +58,8 @@ def get_image(prompt, model="dall-e-3"):
 #print(response)
 
 with st.form(key = "chat"):
-    prompt = st.text_input('In your ideal city, what are some key features you would like to have?')
+    prompt = st.text_input('**In your ideal city, what are some key features you would like to have?\
+                           For example, you could say "I would like to have a park with a lake and a playground.**"')
     submitted = st.form_submit_button("Submit")
         
     if submitted:
