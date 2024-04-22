@@ -11,6 +11,9 @@ st.sidebar.markdown("# Imagine the Future!")
 
 st.write("Paint the picture of your ideal urban landscape! Describe the features you envision in your dream city, from vibrant pedestrian-friendly streets to green spaces and community hubs. Your input will help our app create a visual rendering of your ideal future cityscape.")
 
+st.write("")
+st.write("Notice of Consent: By submitting a description, you agree to share it with our AI model for image generation. The image will be used solely for the purpose of creating a visual representation of your ideal city and will not be stored or shared with third parties.")
+st.write("")
 openai.api_key = os.environ["OPENAI_API_KEY"]
 
 client = OpenAI()

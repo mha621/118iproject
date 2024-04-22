@@ -16,6 +16,9 @@ st.sidebar.markdown("# Analyze the Walkability of Your City")
 st.write("")
 st.write("Capture the essence of your city to uncover potential barriers to walkability. Share an image to shed light on areas that may hinder pedestrian-friendly experiences in San Jose and receive tailored recommendations to enhance the city's walkability. Our AI-powered tool will analyze the image and provide insights on how to improve the urban landscape for a more vibrant and accessible community. Let's work together to make San Jose a more walkable city!")
 
+st.write("")
+st.write("Notice of Consent: By submitting an image, you agree to share it with our AI model for analysis. The image will be used solely for the purpose of providing insights on walkability and will not be stored or shared with third parties.")
+st.write("")
 # Function to encode the image
 def encode_image(image_path):
     with open(image_path, "rb") as image_file:

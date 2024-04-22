@@ -11,6 +11,9 @@ st.write("")
 st.write("Please follow this format: 'I want to try [food/place/activity] in [city].'")
 st.sidebar.markdown("# Go find new places!")
 
+st.write("")
+st.write("Notice of Consent: By submitting a request, you agree to share it with our AI model for recommendation generation. The recommendations will be used solely for the purpose of providing suggestions and will not be stored or shared with third parties.")
+st.write("")
 openai.api_key = os.environ["OPENAI_API_KEY"]
 
 client = OpenAI()
@@ -54,7 +57,7 @@ def get_food_places(location, term):
         return None
 
 if "openai_model" not in st.session_state:
-    st.session_state["openai_model"] = "gpt-3.5-turbo"
+    st.session_state["openai_model"] = "gpt-4-turbo"
 
 if "messages" not in st.session_state:
     st.session_state.messages = []

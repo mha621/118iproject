@@ -19,6 +19,10 @@ def main():
     st.write("")
     st.write("Stay informed about urban development and walkability in San Jose with ease! Browse our curated list of PDF articles covering a range of topics. Select the article you're interested in and choose from three options: receive a summary, explore key points, or access the full transcription. Whatever your preference, our app ensures you're up-to-date on the latest discussions, plans, and news shaping the city's future.")
 
+
+    st.write("")
+    st.write("Notice of Consent: Your privacy matters to us. By using our app, you consent to the collection and use of your data, including location and images, to enhance your experience and provide personalized recommendations. Rest assured, we prioritize the security and confidentiality of your information. For more details, please review our privacy policy.")
+    st.write("")
     def get_summary(text):
         response = client.chat.completions.create(
             model="gpt-4-turbo",
