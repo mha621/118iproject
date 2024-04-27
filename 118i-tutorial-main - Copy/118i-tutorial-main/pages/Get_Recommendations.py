@@ -45,7 +45,7 @@ def get_completion(prompt, model="gpt-4-turbo"):
    return completion.choices[0].message.content
 
 def get_food_places(location, term):
-    api_key = 'md4LRULvy4LQ5VCTUI7uxqw3wJ-xLcSVnyL4b8dACZCiCfKxwxHNokvIEQVSAfDYScoESGeUUFhAnZkJbhFThBN1asnRwvYNYqEO_WF-KSupyf5iV7Dlw1dCnq4cZnYx'
+    api_key = 'yelpapikey'
     url = 'https://api.yelp.com/v3/businesses/search'
     headers = {'Authorization': 'Bearer %s' % api_key}
     params = {'term': term, 'location': location}
