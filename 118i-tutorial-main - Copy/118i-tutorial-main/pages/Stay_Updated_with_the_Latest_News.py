@@ -21,8 +21,8 @@ def main():
 
 
     st.write("")
-    st.write("Notice of Consent: Your privacy matters to us. By using our app, you consent to the collection and use of your data, including location and images, to enhance your experience and provide personalized recommendations. Rest assured, we prioritize the security and confidentiality of your information. For more details, please review our privacy policy.")
-    st.write("")
+    st.write("**Notice of Consent:** Your privacy matters to us. By using our app, you consent to the collection and use of your data, including location and images, to enhance your experience and provide personalized recommendations. Rest assured, we prioritize the security and confidentiality of your information. For more details, please review our privacy policy.")
+    st.write("*"*40)
     def get_summary(text):
         response = client.chat.completions.create(
             model="gpt-4-turbo",
@@ -99,6 +99,7 @@ def main():
     # Get a list of all the PDF files in the "articles" folder
     pdf_files = [f for f in os.listdir(r'C:\Users\Michelle\Downloads\118i\118iproject\118i-tutorial-main - Copy\118i-tutorial-main\pages\articles') if f.endswith('.pdf')]
 
+    st.write("Please select an article from the list below before choosing what you would like to see.")
     # Let the user select a file
     selected_file = st.selectbox('Select one of the following articles:', pdf_files)
 

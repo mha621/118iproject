@@ -8,12 +8,13 @@ st.markdown("# Where would you like to explore in California?")
 
 st.write("Looking for the perfect spot for your next meal or activity? Simply enter your desired food or activity along with your location, and let our app do the rest! We'll provide tailored recommendations sourced from Yelp, ensuring you find the best places to explore that match your preferences.")
 st.write("")
-st.write("Please follow this format: 'I want to try [food/place/activity] in [city].'")
+st.write("Please follow this format: 'I want to have [food/place/activity] in [city].'")
 st.sidebar.markdown("# Go find new places!")
 
 st.write("")
-st.write("Notice of Consent: By submitting a request, you agree to share it with our AI model for recommendation generation. The recommendations will be used solely for the purpose of providing suggestions and will not be stored or shared with third parties.")
-st.write("")
+st.write("**Notice of Consent:** By submitting a request, you agree to share it with our AI model for recommendation generation. The recommendations will be used solely for the purpose of providing suggestions and will not be stored or shared with third parties.")
+
+st.write("*"*40)
 openai.api_key = os.environ["OPENAI_API_KEY"]
 
 client = OpenAI()
@@ -44,7 +45,7 @@ def get_completion(prompt, model="gpt-4-turbo"):
    return completion.choices[0].message.content
 
 def get_food_places(location, term):
-    api_key = 'yelp_api_key_placeholder'
+    api_key = 'md4LRULvy4LQ5VCTUI7uxqw3wJ-xLcSVnyL4b8dACZCiCfKxwxHNokvIEQVSAfDYScoESGeUUFhAnZkJbhFThBN1asnRwvYNYqEO_WF-KSupyf5iV7Dlw1dCnq4cZnYx'
     url = 'https://api.yelp.com/v3/businesses/search'
     headers = {'Authorization': 'Bearer %s' % api_key}
     params = {'term': term, 'location': location}
@@ -67,7 +68,7 @@ for message in st.session_state.messages:
         st.markdown(message["content"])
 
 with st.form(key = "chat"):
-    prompt = st.text_input("You can enter your message below:")
+    prompt = st.text_input("You can enter your request below:")
     submitted = st.form_submit_button("Send")
 
     if submitted and prompt:
@@ -75,23 +76,28 @@ with st.form(key = "chat"):
         st.session_state.messages.append({"role": "user", "content": prompt})
         st.session_state.messages.append({"role": "assistant", "content": response})
 
-        # If the user's message contains the word 'in', assume that the user is specifying a location
-        if 'in' in prompt.lower():
-            # Split the user's message into words
-            words = prompt.lower().split()
+    
+        # Split the user's message into words
+        words = prompt.lower().split()
 
-            # Get the index of the word 'in'
-            index = words.index('in')
+        # Get the index of the word 'in'
+        index = words.index('in')
 
-            # The word after 'in' is assumed to be the location
-            location = words[index + 1]
+        # The words after 'in' are assumed to be the location
+        location = ' '.join(words[index + 1:])
 
-            # The word before 'in' is assumed to be the term
-            term = words[index - 1]
+        # The word before 'in' is assumed to be the term
+        term = words[index - 1]
 
-            # Get food places
-            food_places = get_food_places(location, term)
-            if food_places:
-                st.write("Here are some " + term + " places you can walk to in " + location + ":")
-                for place in food_places:
-                    st.write(place['name'])
+        # Get food places
+        food_places = get_food_places(location, term)
+        if food_places:
+            st.write(f"Here are some {term} places you can walk to that are located in or near {location.title()}, sourced directly from Yelp:")
+            for i, place in enumerate(food_places, start=1):
+                st.write(f"**{i}. {place['name']}**")
+                st.write(f"**Address:** {', '.join(place['location']['display_address'])}")
+                st.write(f"**Phone:** {place['display_phone']}")
+                st.write(f"**Rating:** {place['rating']} out of 5.0")
+                st.write(f"**Price Level:** {place.get('price', 'N/A')}")
+                st.write(f"[{place['name']}]({place['attributes'].get('menu_url', '#')})")
+                st.write("")

@@ -1,7 +1,7 @@
 [theme]
-primaryColor="#aee6c2"
-backgroundColor="#aee6c2"
-secondaryBackgroundColor="#F0F2F6"
-textColor="#262730"
+primaryColor="#5c8754"       # Dark green, same as backgroundColor
+backgroundColor="#1e392a"   # Even darker green
+secondaryBackgroundColor="#3a5c43"  # Slightly lighter than the background
+textColor="#ffffff"          # White for text
 font="sans serif"
-base = "light"
+base = "dark"
