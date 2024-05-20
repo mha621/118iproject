@@ -95,4 +95,4 @@ if uploaded_file is not None:
         with open('results.txt', 'a') as f:
             f.write(chat_response + '\n')
 
-        st.write("Thank you for reporting the issue. Our team will review the feedback and take appropriate action.")
+        st.write("Thank you for reporting the issue. Our team will review the feedback and take appropriate action. If it appears that the issue is severe enough, we will file a report to your local government to bring awareness to this issue.")
