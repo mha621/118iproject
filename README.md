@@ -4,7 +4,7 @@
 Walk-E is a web-based app that aims to assist college students who may be frustrated with the limited walkability in their city, so they can actively participate in urban development planning in their community. 
 
 ## Walk-E: What is it? 
-Walk-E is a web-based app hosted via Streamlit. Walk-E is inspired by Wall-E, a robot who is programmed to clean up the planet by compacting trash into cubes. Where as Wall-E focuses on cleaning up garbage, Walk-E addresses a plethora of issues that contribute to the limited waklability of cities, specifically in downtown San Jose. 
+Walk-E is a web-based app hosted via Streamlit. Walk-E is inspired by Wall-E, a robot who is programmed to clean up the planet by compacting trash into cubes. Where as Wall-E focuses on cleaning up garbage, Walk-E addresses a plethora of issues that contribute to the limited walkability of cities, specifically in downtown San Jose. 
 
 ## Why do we need Walk-E and who would use it? 
 Let’s learn about a stdudent user who can benefit from using our app. Meet Jasmine, an environmental studies student living on campus at San Jose State. She is passionate about reducing her carbon footprint and supporting local businesses, which she can do by walking to nearby restaurants. However, it is difficult for her to navigate the city because she does not have a car and downtown San Jose is not pedestrian-friendly. That’s why she created a group to advocate for better urban planning. 
